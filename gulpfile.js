@@ -42,4 +42,10 @@ gulp.task('compass', function(done){
     done();
 });
 
-gulp.task('default', gulp.series('coffee', 'js', 'compass'));
+gulp.task('watch', function(){
+    gulp.watch('components/coffee/tagline.coffee', gulp.series('coffee'));
+    gulp.watch('components/scripts/*.js', gulp.series('js'));
+    gulp.watch('components/sass/*.scss', gulp.series('compass'));
+});
+
+gulp.task('default', gulp.series('coffee', 'js', 'compass', 'watch'));
