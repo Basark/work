@@ -2,6 +2,8 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     coffee = require('gulp-coffee'),
     concat = require('gulp-concat'),
+    compass = require('gulp-compass'),
+    path = require('path'),
     browserify = require('gulp-browserify');
 
 gulp.task ('log', function(done){
@@ -25,5 +27,17 @@ gulp.task('js', function(done){
     .pipe(concat('script.js'))
     .pipe(browserify())
     .pipe(gulp.dest('build/dev/js'));
+    done();
+});
+
+gulp.task('compass', function(done){
+    gulp.src('components/sass/style.scss')
+    .pipe(compass({
+      sass: 'components/sass/',
+      image: 'build/dev/images',
+      style: 'expanded'
+    }))
+    .on('error', gutil.log)
+    .pipe(gulp.dest('build/dev/css'));
     done();
 });
